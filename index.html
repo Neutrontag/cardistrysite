@@ -5,19 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardistry Öğreniyorum</title>
     <style>
+        /* CSS Değişkenleri ile Renk Paleti Tanımlaması */
+        :root {
+            --dark-bg: #1a1a1a;
+            --light-bg: #2b2b2b;
+            --accent-color: #ff9933; /* Canlı Turuncu */
+            --text-color: #f0f0f0;
+            --card-bg: rgba(43, 43, 43, 0.6);
+            --card-bg-hover: rgba(50, 50, 50, 0.8);
+            --shadow-color: rgba(0, 0, 0, 0.6);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glow-color: rgba(255, 153, 51, 0.5);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e1e1e 0%, #0a0a0a 100%);
-            color: #f0f0f0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a0a0a 100%);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
 
+        /* Arka plan için kart sembolleri deseni */
         body::before {
             content: '';
             position: absolute;
@@ -25,63 +40,89 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><pattern id="club" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 0 C25 0 0 25 0 50 C0 75 25 100 50 100 C75 100 100 75 100 50 C100 25 75 0 50 0 z M50 20 A30 30 0 0 1 50 80 A30 30 0 0 1 50 20 z" fill="%23333" opacity="0.1"/></pattern><pattern id="diamond" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="%23333" opacity="0.1"/></pattern><pattern id="heart" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 20 A25 25 0 0 1 75 45 A25 25 0 0 1 50 70 A25 25 0 0 1 25 45 A25 25 0 0 1 50 20 Z" fill="%23333" opacity="0.1"/></pattern><pattern id="spade" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 80 C25 80 0 55 0 30 C0 5 25 0 50 0 C75 0 100 5 100 30 C100 55 75 80 50 80 z M50 80 L50 100 L40 100 L60 100 L50 80 z" fill="%23333" opacity="0.1"/></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(%23club)"/><rect x="0" y="0" width="100%" height="100%" fill="url(%23diamond)"/><rect x="0" y="0" width="100%" height="100%" fill="url(%23heart)"/><rect x="0" y="0" width="100%" height="100%" fill="url(%23spade)"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><pattern id="club" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 0 C25 0 0 25 0 50 C0 75 25 100 50 100 C75 100 100 75 100 50 C100 25 75 0 50 0 z M50 20 A30 30 0 0 1 50 80 A30 30 0 0 1 50 20 z" fill="%23444" opacity="0.08"/></pattern><pattern id="diamond" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="%23444" opacity="0.08"/></pattern><pattern id="heart" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 20 A25 25 0 0 1 75 45 A25 25 0 0 1 50 70 A25 25 0 0 1 25 45 A25 25 0 0 1 50 20 Z" fill="%23444" opacity="0.08"/></pattern><pattern id="spade" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 80 C25 80 0 55 0 30 C0 5 25 0 50 0 C75 0 100 5 100 30 C100 55 75 80 50 80 z M50 80 L50 100 L40 100 L60 100 L50 80 z" fill="%23444" opacity="0.08"/></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(%23club)"/><rect x="0" y="0" width="100%" height="100%" fill="url(%23diamond)"/><rect x="0" y="0" width="100%" height="100%" fill="url(%23heart)"/><rect x="0" y="0" width="100%" height="100%" fill="url(%23spade)"/></svg>');
             background-size: 100px 100px;
-            opacity: 0.1;
+            opacity: 1;
             z-index: -1;
         }
 
         .header {
             width: 100%;
             text-align: center;
-            padding: 40px 20px;
-            background-color: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            margin-bottom: 30px;
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 50px 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 6px 20px var(--shadow-color);
+            margin-bottom: 40px;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
         }
 
         h1 {
-            font-size: 3.5em;
+            font-size: clamp(2.5em, 6vw, 4.5em); /* Duyarlı font boyutu */
             letter-spacing: 2px;
             margin: 0;
-            color: #e67e22;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            color: var(--accent-color);
+            text-shadow: 2px 2px 10px var(--shadow-color);
         }
 
         .card-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 25px;
+            gap: 30px;
             padding: 25px;
-            max-width: 1200px;
+            max-width: 1400px;
+            margin-top: 20px;
         }
 
         .cardistry-move {
-            background-color: rgba(255, 255, 255, 0.08);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 6px 15px var(--shadow-color);
             width: 320px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cardistry-move::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            background: radial-gradient(circle at top left, var(--glow-color), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
         }
 
         .cardistry-move:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-            background-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-12px);
+            box-shadow: 0 12px 30px var(--shadow-color);
+            background-color: var(--card-bg-hover);
+            border-color: var(--accent-color);
+        }
+
+        .cardistry-move:hover::before {
+            opacity: 1;
         }
 
         .cardistry-move h2 {
-            color: #e67e22;
-            font-size: 1.8em;
+            color: var(--accent-color);
+            font-size: 2em;
             margin-top: 0;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 5px var(--shadow-color);
         }
 
         .video-wrapper {
@@ -89,9 +130,9 @@
             padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            border: 1px solid var(--border-color);
         }
 
         .video-wrapper iframe {
@@ -103,6 +144,7 @@
             border: 0;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -129,6 +171,34 @@
             <h2>Hot Shot</h2>
             <div class="video-wrapper">
                 <iframe src="https://www.youtube.com/embed/wyjIjdTidgA?start=156" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="cardistry-move">
+            <h2>Scissors Cut</h2>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/z4T-c8R_uG0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="cardistry-move">
+            <h2>Backdrop</h2>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/Xq4j1bYyJow" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="cardistry-move">
+            <h2>Spring Triangle</h2>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/S2gP0o7X1nU" allowfullscreen></iframe>
+            </div>
+        </div>
+        
+        <div class="cardistry-move">
+            <h2>Legolove</h2>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/g2JdM5L5t98" allowfullscreen></iframe>
             </div>
         </div>
     </div>

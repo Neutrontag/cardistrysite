@@ -1,210 +1,972 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cardistry Öğreniyorum</title>
-    <!-- Tarayıcı sekmesi için Maça Ası (Ace of Spades) logosu -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23ff9933' d='M50 0 C25 0 0 25 0 50 C0 75 25 100 50 100 C75 100 100 75 100 50 C100 25 75 0 50 0 Z M50 20 A30 30 0 0 1 50 80 A30 30 0 0 1 50 20 Z' /%3E%3Ctext x='50' y='55' font-family='sans-serif' font-weight='bold' font-size='60' text-anchor='middle' dominant-baseline='middle' fill='%23f0f0f0'%3EA%3C/text%3E%3C/svg%3E" type="image/svg+xml">
-    
-    <style>
-        /* CSS Değişkenleri ile Renk Paleti Tanımlaması */
-        :root {
-            --dark-bg: #1a1a1a;
-            --light-bg: #2b2b2b;
-            --accent-color: #ff9933; /* Canlı Turuncu */
-            --text-color: #f0f0f0;
-            --card-bg: rgba(43, 43, 43, 0.6);
-            --card-bg-hover: rgba(50, 50, 50, 0.8);
-            --shadow-color: rgba(0, 0, 0, 0.6);
-            --border-color: rgba(255, 255, 255, 0.1);
-            --glow-color: rgba(255, 153, 51, 0.5);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardistry — Kart Sanatı</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:#0e0b07; --card-bg:#1c1409;
+  --gold:#c8923a; --gold-dim:rgba(200,146,58,.45); --gold-glow:rgba(200,146,58,.12);
+  --cream:#f0e6d3; --cream-dim:rgba(240,230,211,.45);
+  --red:#9b2020; --ink:rgba(240,230,211,.08);
+}
+body { background:var(--bg); font-family:'IM Fell English',serif; color:var(--cream); min-height:100vh; }
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:999;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:.5;
+}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a0a0a 100%);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
+/* HEADER */
+header { text-align:center; padding:64px 24px 48px; position:relative; overflow:hidden; }
+header::before { content:''; position:absolute; top:-60px; left:50%; transform:translateX(-50%); width:600px; height:300px; background:radial-gradient(ellipse,rgba(200,146,58,.1) 0%,transparent 70%); pointer-events:none; }
+.header-rule { display:flex; align-items:center; gap:16px; justify-content:center; margin-bottom:18px; }
+.header-rule span { height:1px; width:80px; background:linear-gradient(90deg,transparent,var(--gold-dim)); }
+.header-rule span:last-child { background:linear-gradient(90deg,var(--gold-dim),transparent); }
+.header-rule em { color:var(--gold); font-size:13px; letter-spacing:4px; font-style:normal; font-family:'Special Elite',cursive; }
+h1 { font-family:'Playfair Display',serif; font-size:clamp(52px,9vw,100px); font-weight:900; font-style:italic; line-height:.9; color:var(--cream); text-shadow:0 2px 0 rgba(0,0,0,.8),0 0 60px rgba(200,146,58,.2); letter-spacing:-3px; }
+.subtitle { font-family:'Special Elite',cursive; font-size:11px; letter-spacing:7px; text-transform:uppercase; color:var(--gold); opacity:.7; margin-top:16px; }
 
-        /* Arka plan için kart sembolleri deseni */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><pattern id="club" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 0 C25 0 0 25 0 50 C0 75 25 100 50 100 C75 100 100 75 100 50 C100 25 75 0 50 0 z M50 20 A30 30 0 0 1 50 80 A30 30 0 0 1 50 20 z" fill="%23444" opacity="0.08"/></pattern><pattern id="diamond" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 0 L100 50 L50 100 L0 50 Z" fill="%23444" opacity="0.08"/></pattern><pattern id="heart" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 20 A25 25 0 0 1 75 45 A25 25 0 0 1 50 70 A25 25 0 0 1 25 45 A25 25 0 0 1 50 20 Z" fill="%23444" opacity="0.08"/></pattern><pattern id="spade" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M50 80 C25 80 0 55 0 30 C0 5 25 0 50 0 C75 0 100 5 100 30 C100 55 75 80 50 80 z M50 80 L50 100 L40 100 L60 100 L50 80 z" fill="%23444" opacity="0.08"/></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(%23club)"/><rect x="0" y="0" width="100%" height="100%" fill="url(%23diamond)"/><rect x="0" y="0" width="100%" height="100%" fill="url(%23heart)"/><rect x="0" y="0" width="100%" height="100%" fill="url(%23spade)"/></svg>');
-            background-size: 100px 100px;
-            opacity: 1;
-            z-index: -1;
-        }
+/* SEARCH */
+.search-bar { max-width:440px; margin:36px auto 0; position:relative; }
+.search-bar input { width:100%; background:var(--ink); border:1px solid var(--gold-dim); border-radius:1px; padding:13px 20px 13px 44px; color:var(--cream); font-family:'IM Fell English',serif; font-size:16px; outline:none; transition:border-color .25s,background .25s; }
+.search-bar input::placeholder { color:rgba(240,230,211,.2); font-style:italic; }
+.search-bar input:focus { border-color:var(--gold); background:rgba(240,230,211,.05); }
+.search-icon { position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--gold-dim); font-size:17px; pointer-events:none; }
 
-        .header {
-            width: 100%;
-            text-align: center;
-            padding: 50px 20px;
-            background-color: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 6px 20px var(--shadow-color);
-            margin-bottom: 40px;
-            backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        h1 {
-            font-size: clamp(2.5em, 6vw, 4.5em); /* Duyarlı font boyutu */
-            letter-spacing: 2px;
-            margin: 0;
-            color: var(--accent-color);
-            text-shadow: 2px 2px 10px var(--shadow-color);
-        }
+/* TABS */
+.tabs-wrap { max-width:960px; margin:48px auto 0; padding:0 20px; }
+.tabs-hdr { font-family:'Special Elite',cursive; font-size:9px; letter-spacing:5px; text-transform:uppercase; color:var(--gold-dim); margin-bottom:12px; text-align:center; }
+.tabs { display:flex; border:1px solid var(--gold-dim); border-radius:2px; overflow:hidden; flex-wrap:wrap; }
+.tab { flex:1; min-width:100px; background:transparent; border:none; border-right:1px solid var(--gold-dim); padding:13px 8px; cursor:pointer; text-align:center; transition:background .2s; }
+.tab:last-child { border-right:none; }
+.tab-icon { display:block; font-size:18px; margin-bottom:3px; line-height:1; transition:transform .2s; }
+.tab-name { display:block; font-family:'Special Elite',cursive; font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:var(--cream-dim); transition:color .2s; }
+.tab-count { font-family:'Special Elite',cursive; font-size:9px; color:var(--gold-dim); }
+.tab:hover { background:var(--gold-glow); }
+.tab:hover .tab-name { color:var(--cream); }
+.tab:hover .tab-icon { transform:scale(1.15); }
+.tab.active { background:rgba(200,146,58,.13); box-shadow:inset 0 -2px 0 var(--gold); }
+.tab.active .tab-name { color:var(--gold); }
 
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            padding: 25px;
-            max-width: 1400px;
-            margin-top: 20px;
-        }
+/* FILTERS */
+.filters { max-width:960px; margin:20px auto 0; padding:0 20px; display:flex; gap:7px; align-items:center; flex-wrap:wrap; }
+.flabel { font-family:'Special Elite',cursive; font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--gold-dim); margin-right:2px; }
+.dbtn { padding:5px 13px; background:transparent; border:1px solid rgba(200,146,58,.2); border-radius:1px; color:rgba(240,230,211,.3); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all .2s; }
+.dbtn:hover { border-color:var(--gold-dim); color:var(--gold); }
+.dbtn.active { background:var(--gold); border-color:var(--gold); color:var(--bg); }
+.fpill { margin-left:auto; padding:5px 14px; background:transparent; border:1px solid rgba(155,32,32,.3); border-radius:1px; color:rgba(240,230,211,.3); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all .2s; white-space:nowrap; }
+.fpill:hover { border-color:var(--red); color:#c0392b; }
+.fpill.active { background:var(--red); border-color:var(--red); color:var(--cream); }
 
-        .cardistry-move {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 6px 15px var(--shadow-color);
-            width: 320px;
-            text-align: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
-            border: 1px solid var(--border-color);
-            backdrop-filter: blur(5px);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+.stats { max-width:960px; margin:14px auto 0; padding:0 24px; font-family:'Special Elite',cursive; font-size:10px; letter-spacing:2px; color:rgba(200,146,58,.35); text-transform:uppercase; }
 
-        .cardistry-move::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 16px;
-            background: radial-gradient(circle at top left, var(--glow-color), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-        }
+/* GRID */
+.grid { max-width:960px; margin:24px auto 100px; padding:0 20px; display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px; }
 
-        .cardistry-move:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 12px 30px var(--shadow-color);
-            background-color: var(--card-bg-hover);
-            border-color: var(--accent-color);
-        }
+/* CARD */
+.card { background:var(--card-bg); border:1px solid rgba(200,146,58,.18); position:relative; overflow:hidden; transition:transform .3s cubic-bezier(.2,.8,.3,1),box-shadow .3s,border-color .3s; animation:rise .35s ease both; cursor:pointer; }
+.card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(200,146,58,.05) 0%,transparent 50%); pointer-events:none; z-index:1; }
+.card:hover { transform:translateY(-4px) rotate(-.3deg); box-shadow:0 20px 50px rgba(0,0,0,.7),0 0 0 1px rgba(200,146,58,.4); border-color:rgba(200,146,58,.45); }
+.card.hidden { display:none; }
+.card.favorited { border-color:rgba(155,32,32,.5); }
 
-        .cardistry-move:hover::before {
-            opacity: 1;
-        }
+/* THUMB */
+.thumb { width:100%; aspect-ratio:16/9; position:relative; overflow:hidden; background:#0a0804; display:flex; align-items:center; justify-content:center; }
+.thumb iframe { position:absolute; inset:0; width:100%; height:100%; border:none; }
+.thumb-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:2; transition:opacity .25s; background:rgba(10,8,4,.35); }
+.thumb.playing .thumb-overlay { opacity:0; pointer-events:none; }
+.thumb-pattern { position:absolute; inset:0; background-image:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(200,146,58,.025) 18px,rgba(200,146,58,.025) 19px),repeating-linear-gradient(-45deg,transparent,transparent 18px,rgba(200,146,58,.025) 18px,rgba(200,146,58,.025) 19px); }
+.wm { position:absolute; bottom:-6px; right:8px; font-size:70px; line-height:1; color:rgba(200,146,58,.05); user-select:none; font-family:'Playfair Display',serif; }
+.play-btn { width:50px; height:50px; border:1.5px solid rgba(200,146,58,.5); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all .25s; background:rgba(14,11,7,.5); backdrop-filter:blur(4px); position:relative; z-index:3; }
+.play-btn::after { content:''; width:0; height:0; border-style:solid; border-width:8px 0 8px 14px; border-color:transparent transparent transparent var(--gold); margin-left:3px; }
+.card:hover .play-btn { border-color:var(--gold); background:rgba(200,146,58,.15); transform:scale(1.08); }
 
-        .cardistry-move h2 {
-            color: var(--accent-color);
-            font-size: 2em;
-            margin-top: 0;
-            margin-bottom: 25px;
-            text-shadow: 1px 1px 5px var(--shadow-color);
-        }
+/* CARD BODY */
+.card-body { padding:15px 16px 13px; position:relative; z-index:2; }
+.card-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
+.mname { font-family:'Playfair Display',serif; font-size:18px; font-style:italic; color:var(--cream); line-height:1.15; }
+.favbtn { background:none; border:none; cursor:pointer; font-size:17px; color:rgba(240,230,211,.18); transition:color .2s,transform .2s; padding:2px 0 0 8px; line-height:1; flex-shrink:0; }
+.favbtn:hover { color:var(--red); transform:scale(1.25); }
+.favbtn.on { color:var(--red); }
+.diff-row { display:flex; align-items:center; gap:7px; }
+.pips { display:flex; gap:3px; }
+.pip { width:6px; height:6px; border-radius:50%; border:1px solid rgba(200,146,58,.25); }
+.pip.on { background:var(--gold); border-color:var(--gold); }
+.pip.h  { background:var(--red); border-color:var(--red); }
+.dword { font-family:'Special Elite',cursive; font-size:9px; letter-spacing:2px; text-transform:uppercase; }
+.dk { color:#4fa870; } .do { color:var(--gold); } .dz { color:#d47b35; } .du { color:#b03030; }
+.csuit { position:absolute; top:9px; left:11px; font-size:14px; color:rgba(200,146,58,.25); line-height:1; user-select:none; }
 
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px var(--shadow-color);
-            border: 1px solid var(--border-color);
-        }
+/* LINK BADGE */
+.yt-link { display:inline-flex; align-items:center; gap:5px; margin-top:9px; font-family:'Special Elite',cursive; font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(200,146,58,.5); text-decoration:none; border:1px solid rgba(200,146,58,.2); padding:4px 10px; border-radius:1px; transition:all .2s; }
+.yt-link:hover { color:var(--gold); border-color:var(--gold); background:var(--gold-glow); }
 
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+/* CATEGORY SECTION DIVIDER */
+.cat-divider { grid-column:1/-1; display:flex; align-items:center; gap:14px; padding:8px 0 2px; }
+.cat-divider-line { flex:1; height:1px; background:linear-gradient(90deg,rgba(200,146,58,.3),transparent); }
+.cat-divider-line.r { background:linear-gradient(90deg,transparent,rgba(200,146,58,.3)); }
+.cat-divider-text { font-family:'Special Elite',cursive; font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); white-space:nowrap; opacity:.7; }
+
+.empty { grid-column:1/-1; text-align:center; padding:80px 0; display:none; }
+.empty.show { display:block; }
+.empty-icon { font-size:46px; opacity:.15; margin-bottom:10px; }
+.empty-text { font-family:'Playfair Display',serif; font-size:22px; font-style:italic; color:rgba(240,230,211,.2); }
+
+footer { text-align:center; padding:28px; border-top:1px solid rgba(200,146,58,.1); font-family:'Special Elite',cursive; font-size:10px; letter-spacing:4px; text-transform:uppercase; color:rgba(200,146,58,.2); }
+
+@keyframes rise { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+@media(max-width:600px){ .tab{min-width:0;flex:0 0 33.33%;} .filters{gap:5px;} .fpill{margin-left:0;} }
+</style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Cardistry Öğreniyorum</h1>
-    </div>
+<header>
+  <div class="header-rule"><span></span><em>♠ &nbsp;♥ &nbsp;♦ &nbsp;♣</em><span></span></div>
+  <h1>Cardistry</h1>
+  <p class="subtitle">Kart Sanatı & Sihir Arşivi</p>
+  <div class="search-bar">
+    <span class="search-icon">⚲</span>
+    <input type="search" id="si" placeholder="Hareket ara…" oninput="doFilter()">
+  </div>
+</header>
 
-    <div class="card-container">
-        <div class="cardistry-move">
-            <h2>Judo Flip</h2>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/XERJh5xlBps?start=20" allowfullscreen></iframe>
-            </div>
-        </div>
+<div class="tabs-wrap">
+  <p class="tabs-hdr">— Kategori —</p>
+  <div class="tabs">
+    <button class="tab active" onclick="setTab(this,'all')"><span class="tab-icon">🃏</span><span class="tab-name">Tümü</span><br><span class="tab-count" id="cnt-all"></span></button>
+    <button class="tab" onclick="setTab(this,'cuts')"><span class="tab-icon">✂️</span><span class="tab-name">Cuts</span><br><span class="tab-count" id="cnt-cuts"></span></button>
+    <button class="tab" onclick="setTab(this,'shuffles')"><span class="tab-icon">🔀</span><span class="tab-name">Shuffles</span><br><span class="tab-count" id="cnt-shuffles"></span></button>
+    <button class="tab" onclick="setTab(this,'fans')"><span class="tab-icon">🌸</span><span class="tab-name">Fans</span><br><span class="tab-count" id="cnt-fans"></span></button>
+    <button class="tab" onclick="setTab(this,'flourishes')"><span class="tab-icon">🌀</span><span class="tab-name">Flourishes</span><br><span class="tab-count" id="cnt-flourishes"></span></button>
+    <button class="tab" onclick="setTab(this,'tricks')"><span class="tab-icon">🎩</span><span class="tab-name">Tricks</span><br><span class="tab-count" id="cnt-tricks"></span></button>
+    <button class="tab" onclick="setTab(this,'sleights')"><span class="tab-icon">🤫</span><span class="tab-name">Sleights</span><br><span class="tab-count" id="cnt-sleights"></span></button>
+  </div>
+</div>
 
-        <div class="cardistry-move">
-            <h2>Knuckle Cut</h2>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/bGBidZeAWXo?start=21" allowfullscreen></iframe>
-            </div>
-        </div>
+<div class="filters">
+  <span class="flabel">Seviye —</span>
+  <button class="dbtn active" onclick="setDiff(this,'all')">Tümü</button>
+  <button class="dbtn" onclick="setDiff(this,'Kolay')">Kolay</button>
+  <button class="dbtn" onclick="setDiff(this,'Orta')">Orta</button>
+  <button class="dbtn" onclick="setDiff(this,'Zor')">Zor</button>
+  <button class="dbtn" onclick="setDiff(this,'Uzman')">Uzman</button>
+  <button class="fpill" id="favPill" onclick="toggleFavs()">♥ Favoriler</button>
+</div>
+<div class="stats" id="stats"></div>
 
-        <div class="cardistry-move">
-            <h2>Hot Shot</h2>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/wyjIjdTidgA?start=156" allowfullscreen></iframe>
-            </div>
-        </div>
+<div class="grid" id="grid">
 
-        <div class="cardistry-move">
-            <h2>Scissors Cut</h2>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/z4T-c8R_uG0" allowfullscreen></iframe>
-            </div>
-        </div>
+<!-- ════ CUTS ════ -->
+<div class="cat-divider" data-cat="cuts"><div class="cat-divider-line"></div><span class="cat-divider-text">✂ Cuts</span><div class="cat-divider-line r"></div></div>
 
-        <div class="cardistry-move">
-            <h2>Backdrop</h2>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/Xq4j1bYyJow" allowfullscreen></iframe>
-            </div>
-        </div>
+<div class="card" data-cat="cuts" data-diff="Kolay" data-name="charlier cut" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-charlier">
+    <div class="thumb-pattern"></div><div class="wm">✂</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/YdBdW0OlLpQ?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Charlier Cut</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/YdBdW0OlLpQ" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
 
-        <div class="cardistry-move">
-            <h2>Spring Triangle</h2>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/S2gP0o7X1nU" allowfullscreen></iframe>
-            </div>
-        </div>
-        
-        <div class="cardistry-move">
-            <h2>Legolove</h2>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/g2JdM5L5t98" allowfullscreen></iframe>
-            </div>
-        </div>
-    </div>
+<div class="card" data-cat="cuts" data-diff="Kolay" data-name="swiss cut swivel cut" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-swivel">
+    <div class="thumb-pattern"></div><div class="wm">✂</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/Rn5lmEQej_k?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Swiss / Swivel Cut</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/Rn5lmEQej_k" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
 
+<div class="card" data-cat="cuts" data-diff="Kolay" data-name="scissors cut" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-scissors">
+    <div class="thumb-pattern"></div><div class="wm">✂</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/z9YkyM0hG3M?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Scissors Cut</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/z9YkyM0hG3M" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="cuts" data-diff="Orta" data-name="revolution cut" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-revolution">
+    <div class="thumb-pattern"></div><div class="wm">✂</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/2_KndJznY5A?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Revolution Cut</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/2_KndJznY5A" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="cuts" data-diff="Orta" data-name="3 packet false cut" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-falsecut">
+    <div class="thumb-pattern"></div><div class="wm">✂</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/MdMsXWQLlcc?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">3 Packet False Cut</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/MdMsXWQLlcc" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="cuts" data-diff="Kolay" data-name="judo flip" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-judo">
+    <div class="thumb-pattern"></div><div class="wm">✂</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/43DQqBDSkow?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Judo Flip</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/43DQqBDSkow" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<!-- ════ SHUFFLES ════ -->
+<div class="cat-divider" data-cat="shuffles"><div class="cat-divider-line"></div><span class="cat-divider-text">🔀 Shuffles</span><div class="cat-divider-line r"></div></div>
+
+<div class="card" data-cat="shuffles" data-diff="Kolay" data-name="faro shuffle" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-faro">
+    <div class="thumb-pattern"></div><div class="wm">♻</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/T0yO2n8x_DI?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Faro Shuffle</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/T0yO2n8x_DI" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="shuffles" data-diff="Kolay" data-name="riffle shuffle" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-riffle">
+    <div class="thumb-pattern"></div><div class="wm">♻</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/f6ZD1lDbW3M?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Riffle Shuffle</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/f6ZD1lDbW3M" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="shuffles" data-diff="Kolay" data-name="overhand shuffle" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-overhand">
+    <div class="thumb-pattern"></div><div class="wm">♻</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/dCcg9yd_4RU?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Overhand Shuffle</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/dCcg9yd_4RU" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="shuffles" data-diff="Kolay" data-name="hindu shuffle" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-hindu">
+    <div class="thumb-pattern"></div><div class="wm">♻</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/sVkbGRtTh_Y?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Hindu Shuffle</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/sVkbGRtTh_Y" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="shuffles" data-diff="Orta" data-name="cascade waterfall" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-cascade">
+    <div class="thumb-pattern"></div><div class="wm">♻</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/VhWmAgi5MRE?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Cascade</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/VhWmAgi5MRE" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<!-- ════ FANS ════ -->
+<div class="cat-divider" data-cat="fans"><div class="cat-divider-line"></div><span class="cat-divider-text">🌸 Fans</span><div class="cat-divider-line r"></div></div>
+
+<div class="card" data-cat="fans" data-diff="Orta" data-name="thumb fan" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-thumbfan">
+    <div class="thumb-pattern"></div><div class="wm">❋</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/2Rxky5ilkSo?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Thumb Fan</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/2Rxky5ilkSo" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="fans" data-diff="Kolay" data-name="smear fan" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-smear">
+    <div class="thumb-pattern"></div><div class="wm">❋</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/8MF9m9A_Cpg?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Smear Fan</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/8MF9m9A_Cpg" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="fans" data-diff="Orta" data-name="riffle fan" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-rifflefan">
+    <div class="thumb-pattern"></div><div class="wm">❋</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/1-7JE3-uiFM?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Riffle Fan</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/1-7JE3-uiFM" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<!-- ════ FLOURISHES ════ -->
+<div class="cat-divider" data-cat="flourishes"><div class="cat-divider-line"></div><span class="cat-divider-text">🌀 Flourishes</span><div class="cat-divider-line r"></div></div>
+
+<div class="card" data-cat="flourishes" data-diff="Kolay" data-name="dribble" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-dribble">
+    <div class="thumb-pattern"></div><div class="wm">○</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/OhpGcjCzL5g?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Dribble</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/OhpGcjCzL5g" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="flourishes" data-diff="Orta" data-name="card spring" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-spring">
+    <div class="thumb-pattern"></div><div class="wm">○</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/YJX9sUTwUlg?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Card Spring</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/YJX9sUTwUlg" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="flourishes" data-diff="Kolay" data-name="ribbon spread" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-ribbon">
+    <div class="thumb-pattern"></div><div class="wm">○</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/0gGONQKuM5s?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Ribbon Spread</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/0gGONQKuM5s" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="flourishes" data-diff="Orta" data-name="pirouette" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-pirouette">
+    <div class="thumb-pattern"></div><div class="wm">○</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/XLRxqR9Oe8s?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Pirouette</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/XLRxqR9Oe8s" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="flourishes" data-diff="Orta" data-name="flicker" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-flicker">
+    <div class="thumb-pattern"></div><div class="wm">○</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/ZLIQcpGLqlc?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Flicker</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/ZLIQcpGLqlc" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="flourishes" data-diff="Uzman" data-name="backdrop" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-backdrop">
+    <div class="thumb-pattern"></div><div class="wm">○</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/NsHfylBjFDY?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Backdrop</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div></div><span class="dword du">Uzman</span></div>
+    <a class="yt-link" href="https://youtu.be/NsHfylBjFDY" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="flourishes" data-diff="Zor" data-name="top shot" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-topshot">
+    <div class="thumb-pattern"></div><div class="wm">○</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/ENTgs9pxzEE?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Top Shot</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dz">Zor</span></div>
+    <a class="yt-link" href="https://youtu.be/ENTgs9pxzEE" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="flourishes" data-diff="Zor" data-name="hot shot" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-hotshot">
+    <div class="thumb-pattern"></div><div class="wm">○</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/J5zyMSEvNv4?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Hot Shot</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dz">Zor</span></div>
+    <a class="yt-link" href="https://youtu.be/J5zyMSEvNv4" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<!-- ════ TRICKS ════ -->
+<div class="cat-divider" data-cat="tricks"><div class="cat-divider-line"></div><span class="cat-divider-text">🎩 Tricks</span><div class="cat-divider-line r"></div></div>
+
+<div class="card" data-cat="tricks" data-diff="Kolay" data-name="21 card trick" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-21card">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/4P8sEqM1XT4?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">21 Card Trick</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/4P8sEqM1XT4" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Kolay" data-name="predict same color top card" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-samecolor">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/w5tWDLXfS0U?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Same Color Prediction</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/w5tWDLXfS0U" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Kolay" data-name="predict suit number combination" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-suitnum">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/57wsLDNeG7I?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Suit × Number Prediction</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/57wsLDNeG7I" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="26 26 half deck klondike" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-klondike">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/PEHklNKJj0k?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">26-26 Half Deck</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/PEHklNKJj0k" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="the revolver" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-revolver">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/ZA5ISGKiAb8?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">The Revolver</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/ZA5ISGKiAb8" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Zor" data-name="acaan any card any number" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-acaan">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/s5NvDcHBcOA?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">ACAAN</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dz">Zor</span></div>
+    <a class="yt-link" href="https://youtu.be/s5NvDcHBcOA" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Kolay" data-name="yes or no üst alt" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-yesno">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/Z1P9sBXFP6I?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Yes or No</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/Z1P9sBXFP6I" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Kolay" data-name="card trick of the year week month calendar" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-calendar">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/jDMVelVTHDo?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Calendar Trick</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/jDMVelVTHDo" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Kolay" data-name="lazy man's card trick" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-lazyman">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/Ty0dJg8WqOA?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Lazy Man's Trick</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/Ty0dJg8WqOA" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="name any number" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-nameno">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/G3T7oHU9M_8?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Name Any Number</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/G3T7oHU9M_8" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="ters deste upside down deck" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-ters">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/xsHJ1yFmNiE?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Ters Deste</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/xsHJ1yFmNiE" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="do as i do" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-doasido">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/Z3-wKRFCE2o?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Do As I Do</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/Z3-wKRFCE2o" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="name trick" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-nametrick">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/sWCvSjVPuKk?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Name Trick</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/sWCvSjVPuKk" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Zor" data-name="triumph effect" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-triumph">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/q5w5eBNE8DI?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Triumph Effect</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dz">Zor</span></div>
+    <a class="yt-link" href="https://youtu.be/q5w5eBNE8DI" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Kolay" data-name="10 card trick" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-10card">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/MhJzYFEFHoE?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">10 Card Trick</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/MhJzYFEFHoE" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="catch card from dribble" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-catchdribble">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/OhpGcjCzL5g?start=90&autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Catch from Dribble</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/OhpGcjCzL5g" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="oil and water" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-oilwater">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/yy6GYPQ4DJU?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Oil and Water</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/yy6GYPQ4DJU" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Zor" data-name="devil's elevator" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-elevator">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/JHQ1ToMV4Ro?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Devil's Elevator</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dz">Zor</span></div>
+    <a class="yt-link" href="https://youtu.be/JHQ1ToMV4Ro" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Zor" data-name="out of this world" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-ootw">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/g9UGhHjMzAM?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Out of This World</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dz">Zor</span></div>
+    <a class="yt-link" href="https://youtu.be/g9UGhHjMzAM" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Kolay" data-name="27 card trick" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-27card">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/bDdPGRPfCnY?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">27 Card Trick</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dk">Kolay</span></div>
+    <a class="yt-link" href="https://youtu.be/bDdPGRPfCnY" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="magician vs drunk" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-drunk">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/s8BFTYG4OcE?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Magician vs Drunk</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/s8BFTYG4OcE" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="the knockout" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-knockout">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/5-wbKQPBdR0?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">The Knockout</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/5-wbKQPBdR0" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="tricks" data-diff="Orta" data-name="the wrong path" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-wrongpath">
+    <div class="thumb-pattern"></div><div class="wm">✦</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/TB5DRyTPVZE?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">The Wrong Path</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/TB5DRyTPVZE" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<!-- ════ SLEIGHTS ════ -->
+<div class="cat-divider" data-cat="sleights"><div class="cat-divider-line"></div><span class="cat-divider-text">🤫 Sleights</span><div class="cat-divider-line r"></div></div>
+
+<div class="card" data-cat="sleights" data-diff="Orta" data-name="control card second top" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-control">
+    <div class="thumb-pattern"></div><div class="wm">◈</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/q9TfxXSHMNo?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Card Control (2nd Top)</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/q9TfxXSHMNo" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="sleights" data-diff="Zor" data-name="8 from bottom control" data-fav="false">
+  <span class="csuit">♥</span>
+  <div class="thumb" id="t-8bottom">
+    <div class="thumb-pattern"></div><div class="wm">◈</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/YdBdW0OlLpQ?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">8th from Bottom</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dz">Zor</span></div>
+    <a class="yt-link" href="https://youtu.be/YdBdW0OlLpQ" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="sleights" data-diff="Orta" data-name="self control" data-fav="false">
+  <span class="csuit">♦</span>
+  <div class="thumb" id="t-selfcontrol">
+    <div class="thumb-pattern"></div><div class="wm">◈</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/YJX9sUTwUlg?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Self Control</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on"></div><div class="pip on"></div><div class="pip"></div><div class="pip"></div><div class="pip"></div></div><span class="dword do">Orta</span></div>
+    <a class="yt-link" href="https://youtu.be/YJX9sUTwUlg" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="sleights" data-diff="Zor" data-name="double lift variations" data-fav="false">
+  <span class="csuit">♣</span>
+  <div class="thumb" id="t-doublelift">
+    <div class="thumb-pattern"></div><div class="wm">◈</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/dCcg9yd_4RU?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Double Lift</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip"></div><div class="pip"></div></div><span class="dword dz">Zor</span></div>
+    <a class="yt-link" href="https://youtu.be/dCcg9yd_4RU" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="card" data-cat="sleights" data-diff="Uzman" data-name="control and top shot deck flip" data-fav="false">
+  <span class="csuit">♠</span>
+  <div class="thumb" id="t-controltop">
+    <div class="thumb-pattern"></div><div class="wm">◈</div>
+    <div class="thumb-overlay"><div class="play-btn"></div></div>
+    <iframe data-src="https://www.youtube.com/embed/ENTgs9pxzEE?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  <div class="card-body">
+    <div class="card-top"><h2 class="mname">Control + Top Shot</h2><button class="favbtn" onclick="toggleFav(this,event)">♡</button></div>
+    <div class="diff-row"><div class="pips"><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip on h"></div><div class="pip"></div></div><span class="dword du">Uzman</span></div>
+    <a class="yt-link" href="https://youtu.be/ENTgs9pxzEE" target="_blank">▶ YouTube'da İzle</a>
+  </div>
+</div>
+
+<div class="empty" id="empty">
+  <div class="empty-icon">🃏</div>
+  <p class="empty-text">Hareket bulunamadı…</p>
+</div>
+</div><!-- /grid -->
+
+<footer>♠ Cardistry — Kart Sanatı & Sihir Arşivi ♠</footer>
+
+<script>
+const CATS = ['all','cuts','shuffles','fans','flourishes','tricks','sleights'];
+let activeCat = 'all', activeDiff = 'all', favsOnly = false;
+
+function cards() { return document.querySelectorAll('.card[data-cat]'); }
+function dividers() { return document.querySelectorAll('.cat-divider'); }
+
+function updateCounts() {
+  CATS.forEach(cat => {
+    let n=0; cards().forEach(c=>{ if(cat==='all'||c.dataset.cat===cat) n++; });
+    const el = document.getElementById('cnt-'+cat);
+    if(el) el.textContent = n;
+  });
+}
+
+function doFilter() {
+  const q = document.getElementById('si').value.toLowerCase().trim();
+  let vis = 0;
+
+  cards().forEach(c => {
+    const ok =
+      (activeCat==='all' || c.dataset.cat===activeCat) &&
+      (activeDiff==='all' || c.dataset.diff===activeDiff) &&
+      (!favsOnly || c.dataset.fav==='true') &&
+      (!q || c.dataset.name.includes(q));
+    c.classList.toggle('hidden', !ok);
+    if(ok) vis++;
+  });
+
+  // show/hide dividers
+  dividers().forEach(d => {
+    const cat = d.dataset.cat;
+    if(activeCat!=='all' && cat!==activeCat) { d.style.display='none'; return; }
+    const hasSome = [...cards()].some(c => !c.classList.contains('hidden') && c.dataset.cat===cat);
+    d.style.display = hasSome ? '' : 'none';
+  });
+
+  document.getElementById('stats').textContent = vis + ' hareket gösteriliyor';
+  document.getElementById('empty').classList.toggle('show', vis===0);
+}
+
+function setTab(btn, cat) {
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); activeCat=cat; doFilter();
+}
+
+function setDiff(btn, diff) {
+  document.querySelectorAll('.dbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active'); activeDiff=diff; doFilter();
+}
+
+function toggleFavs() {
+  favsOnly=!favsOnly;
+  document.getElementById('favPill').classList.toggle('active',favsOnly);
+  doFilter();
+}
+
+function toggleFav(btn, e) {
+  e.stopPropagation();
+  const c=btn.closest('.card'), on=c.dataset.fav==='true';
+  c.dataset.fav=on?'false':'true';
+  btn.textContent=on?'♡':'♥'; btn.classList.toggle('on',!on);
+  c.classList.toggle('favorited',!on);
+  doFilter();
+}
+
+// Lazy-load YouTube iframes on play click
+document.querySelectorAll('.thumb').forEach(thumb => {
+  const overlay = thumb.querySelector('.thumb-overlay');
+  const iframe  = thumb.querySelector('iframe');
+  if(!overlay || !iframe) return;
+  overlay.addEventListener('click', () => {
+    iframe.src = iframe.dataset.src;
+    thumb.classList.add('playing');
+  });
+});
+
+// stagger
+cards().forEach((c,i)=>{ c.style.animationDelay=(i*0.03)+'s'; });
+updateCounts();
+doFilter();
+</script>
 </body>
 </html>
